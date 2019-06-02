@@ -17,19 +17,19 @@ export default new VueRouter({
             component: Home
         },
         {
-            path: '/Authorization', //home page
+            path: '/authorization', //home page
             component: Authorization
         },
         {
-            path: '/Cart', //home page
+            path: '/cart', //home page
             component: Cart
         },
         {
-            path: '/Catalog', //home page
+            path: '/catalog', //home page
             component: Catalog
         },
         {
-            path: '/Registration', //home page
+            path: '/registration', //home page
             component: Registration
         },
         {

@@ -7,16 +7,16 @@
                   <router-link tag="li" class="nav-item" exact to="/" active-class="active" >
                       <a class="nav-link">Home</a>
                   </router-link>
-                  <router-link tag="li" class="nav-item " to="/Authorization" active-class="active" >
+                  <router-link tag="li" class="nav-item " to="/authorization" active-class="active" >
                       <a class="nav-link">Authorization</a>
                   </router-link>
-                  <router-link tag="li" class="nav-item " to="/Registration" active-class="active" >
+                  <router-link tag="li" class="nav-item " to="/registration" active-class="active" >
                       <a class="nav-link">Registration</a>
                   </router-link>
-                  <router-link tag="li" class="nav-item " to="/Cart" active-class="active" >
+                  <router-link tag="li" class="nav-item " to="/cart" active-class="active" >
                       <a class="nav-link">Cart</a>
                   </router-link>
-                  <router-link tag="li" class="nav-item " to="/Catalog" active-class="active" >
+                  <router-link tag="li" class="nav-item " to="/catalog" active-class="active" >
                       <a class="nav-link">Catalog</a>
                   </router-link>
 
