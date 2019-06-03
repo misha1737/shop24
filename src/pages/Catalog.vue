@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="container">
+
             <h1>Каталог</h1>
             <button @click="getCatalog">Get Catalog</button>
             <ul>
@@ -8,7 +8,7 @@
                     <a :href="kay.nodeId"> {{kay.name}}</a>
                 </li>
             </ul>
-        </div>
+
     </div>
 </template>
 
@@ -26,7 +26,7 @@
                     this.catalog = response.body;
 
                 }, response => {
-
+                    alert('catalog error')
                     // error callback
                 });
 

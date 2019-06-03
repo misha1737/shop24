@@ -1,16 +1,15 @@
 <template>
     <div>
-        <div class="container">
+
             <h1>Корзина</h1>
             <button @click="getCart">Get Cart</button>
             <hr>
             <ul>
-                <li v-for="kay in cart.orderItems">
+                <li v-for="s in cart.orderItems">
                     <!--<a href="">{{cart.orderItems}}</a>-->
-                    <a :href="kay.product.id">{{kay.product.name}}</a>
+                    <a :href="s.product.id">{{s.product.name}}</a>
                 </li>
             </ul>
-        </div>
     </div>
 </template>
 
@@ -26,19 +25,18 @@
                 const accessData= {
                     Authorization: 'Bearer '+localStorage.access_token,
                 }
-                console.log(accessData)
                 this.$http.get('https://web-store-sample-vs.herokuapp.com/web-store/shopping-carts/mikekozlov2@gmail.com',{
                         headers: accessData
 
                 }
                 ).then(response => {
-                    // get body data
                     this.cart = response.body;
-
                 }, response => {
+                    if (response.body.status == 400) {
+                        alert('Невідома помилка')
+                    }else
                     alert('помилка')
 
-                    // error callback
                 });
 
 

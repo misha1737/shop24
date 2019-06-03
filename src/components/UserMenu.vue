@@ -1,0 +1,43 @@
+<template>
+    <div>
+    <h6>Вітаю, {{userName}}</h6><span class="signOut" @click="signOut">Вийти</span>
+    <router-view></router-view>
+    </div>
+</template>
+
+
+<script>
+    export default {
+
+        computed:{
+            userName (){
+                if (localStorage.userName) {
+                    this.$store.commit('changeUserName', localStorage.userName)
+                }else{
+                    this.$store.commit('changeUserName', ' Гість')
+                }
+                return this.$store.getters.getUserName
+
+            }
+        },
+        methods:{
+            signOut(){
+                localStorage.removeItem("access_token");
+                localStorage.removeItem("refresh_token");
+                localStorage.removeItem("userName");
+                this.$store.commit('changeUserName', ' Гість')
+
+                }
+
+            }
+
+
+    }
+</script>
+
+<style scoped>
+    .signOut{
+        cursor: pointer;
+        font-weight:900;
+    }
+</style>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="container">
+
         <h1>Авторизація</h1>
 
         <form class="pt-3" @submit.prevent="signin">
@@ -18,7 +18,7 @@
                 </div>
             <button type="submit" class="btn btn-success" :disabled="$v.$invalid">Вхід</button>
         </form>
-    </div>
+
     </div>
 </template>
 
@@ -52,6 +52,10 @@
                     if (response.body.token_type == 'bearer') {
                         this.$store.commit('changeAccessToken', this.catalog.access_token)
                         this.$store.commit('changeRefreshToken', this.catalog.refresh_token)
+                        let userName=this.$jwt.decode(this.catalog.access_token);
+                        localStorage.setItem('userName', userName.user_name);
+                        this.$store.commit('changeUserName', userName.user_name)
+                        console.log('aytoritaed')
                     }
                     // console.log(this.catalog.);
                 }, response => {

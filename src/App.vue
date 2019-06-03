@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+      <div class="container">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav">
@@ -24,17 +25,24 @@
               </ul>
           </div>
       </nav>
-      <router-view></router-view>
-
+          <app-user-menu></app-user-menu>
+      </div>
   </div>
 </template>
 
 <script>
-
+    import userMenu from './components/UserMenu'
 export default {
   name: 'app',
+    components: {
+        appUserMenu:userMenu
 
-}
+    },
+
+
+    }
+
+
 </script>
 
 <style lang="scss">

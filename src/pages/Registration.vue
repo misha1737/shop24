@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="container">
+
         <h1>Реєстрація</h1>
         <form class="pt-3" @submit.prevent="signin">
             <div class="form-group">
@@ -32,7 +32,8 @@
             <div class="form-group">
                 <label for="password">Ваш пароль</label>
                 <input class="form-control" type="password" id="password"  :class="{'is-invalid': $v.password.$error}" @blur="$v.password.$touch()" v-model="password">
-                <div class="invalid-feedback" v-if="!$v.password.minLength">Мінімальна кількість символів {{$v.password.$params.minLength.min}} зараз: {{password.length}}</div>
+                <div class="invalid-feedback" v-if="!$v.password.required">Пароль є обов'язковим </div>
+                <div class="invalid-feedback" v-else-if="!$v.password.minLength">Мінімальна кількість символів {{$v.password.$params.minLength.min}} зараз: {{password.length}}</div>
                 <div class="invalid-feedback" v-else-if="!$v.email.maxLength">Максимально можлива кількість символів {{$v.email.$params.maxLength.max}} </div>
             </div>
             <div class="form-group">
@@ -44,7 +45,7 @@
             <button class="btn btn-success" type="submit" :disabled="$v.$invalid" >Зареєструватися</button>
         </form>
         </div>
-    </div>
+
 </template>
 
 <script>
@@ -60,13 +61,34 @@
                 confirmPassword: ''
             }
         },
-        methods:{
-            signin (){
-                console.log('Email', this.email)
-                console.log('password', this.password)
+        methods: {
+            signin() {
+                const userData = {
+                    firstName: this.firstName,
+                    lastName: this.lastName,
+                    email: this.email,
+                    password: this.password,
+                    phone: this.phone
+                }
+                console.log(userData);
+                this.$http.post('https://web-store-sample-vs.herokuapp.com/web-store/users', userData).then(response => {
+                    // get body data
+                    this.catalog = response.body;
+
+                        alert('Шановний, ви успішно зарееструвались')
+
+                }, response => {
+                    if (response.body.status == 400) {
+                        alert('Невідома помилка')
+                    }
+                    if (response.body.code == 400) {
+                        alert('Невідома помилка')
+                    }
+                    // error callback
+
+                });
             }
         },
-
             validations: {
                 email: {
                     required,
@@ -77,6 +99,7 @@
                     }
                 },
                 password:{
+                    required,
                     minLength: minLength(6),
                     maxLength: maxLength(100)
                 },
