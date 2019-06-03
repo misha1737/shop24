@@ -6,22 +6,26 @@
         <form class="pt-3" @submit.prevent="signin">
             <div class="form-group">
                 <label for="name">Ваш e-mail</label>
-            <input class="form-control" type="email" id="name" v-model="email">
 
+            <input class="form-control" type="email" id="name" :class="{'is-invalid': $v.email.$error}" @blur="$v.email.$touch()" v-model="email">
+                <div class="invalid-feedback" v-if="!$v.email.required">Поле електронної пошти обов'язкове </div>
+                <div class="invalid-feedback" v-else-if="!$v.email.email">Невірна електронна пошта </div>
             </div>
                 <div class="form-group">
                     <label for="password">Ваш пароль</label>
-            <input class="form-control" type="password" id="password" v-model="password">
-
+            <input class="form-control" type="password" id="password" :class="{'is-invalid': $v.password.$error}" @blur="$v.password.$touch()" v-model="password">
+                    <div class="invalid-feedback" v-if="!$v.password.required">Поле пароль обов'язкове </div>
                 </div>
-            <button class="btn btn-success">Вхід</button>
+            <button type="submit" class="btn btn-success" :disabled="$v.$invalid">Вхід</button>
         </form>
     </div>
     </div>
 </template>
 
 <script>
+    import { required, email } from 'vuelidate/lib/validators'
     export default {
+
         data(){
             return{
                 email:'',
@@ -35,28 +39,42 @@
             }
 
         },
-        methods:{
-            signin(){
-                const userData= {
-                    username:this.email,
-                    password:this.password
+        methods: {
+            signin() {
+                const userData = {
+                    username: this.email,
+                    password: this.password
                 }
 
                 this.$http.post('https://web-store-sample-vs.herokuapp.com/web-store/auth/signin', userData).then(response => {
                     // get body data
                     this.catalog = response.body;
-                    this.$store.commit('changeAccessToken', this.catalog.access_token)
-                    this.$store.commit('changeRefreshToken', this.catalog.refresh_token)
-
-                   // console.log(this.catalog.);
+                    if (response.body.token_type == 'bearer') {
+                        this.$store.commit('changeAccessToken', this.catalog.access_token)
+                        this.$store.commit('changeRefreshToken', this.catalog.refresh_token)
+                    }
+                    // console.log(this.catalog.);
                 }, response => {
-                    if(response.body.status==400){
+                    if (response.body.status == 400) {
+                        alert('Невірний логін або пароль')
+                    }
+                    if (response.body.code == 400) {
                         alert('Невірний логін або пароль')
                     }
                     // error callback
 
                 });
             },
+        },
+            validations: {
+                email: {
+                    required,
+                    email,
+                },
+                password:{
+                    required
+
+                },
 
         }
     }
