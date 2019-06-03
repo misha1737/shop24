@@ -2,7 +2,7 @@
     <div>
         <div class="container">
         <h1>Авторизація</h1>
-            <p>Токен: {{token}} </p>
+
         <form class="pt-3" @submit.prevent="signin">
             <div class="form-group">
                 <label for="name">Ваш e-mail</label>
@@ -45,9 +45,10 @@
                 this.$http.post('https://web-store-sample-vs.herokuapp.com/web-store/auth/signin', userData).then(response => {
                     // get body data
                     this.catalog = response.body;
-                    this.$store.commit('changeToken', this.catalog.access_token)
-                    console.log();
-                   // console.log(this.catalog.refresh_token);
+                    this.$store.commit('changeAccessToken', this.catalog.access_token)
+                    this.$store.commit('changeRefreshToken', this.catalog.refresh_token)
+
+                   // console.log(this.catalog.);
                 }, response => {
                     if(response.body.status==400){
                         alert('Невірний логін або пароль')

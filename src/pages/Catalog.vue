@@ -1,12 +1,14 @@
 <template>
     <div>
-        <h1>Каталог</h1>
-        <button @click="getCatalog">Get Catalog</button>
-        <ul>
-            <li v-for="kay in catalog">
-                <a :href="kay.nodeId"> {{kay.name}}</a>
-            </li>
-        </ul>
+        <div class="container">
+            <h1>Каталог</h1>
+            <button @click="getCatalog">Get Catalog</button>
+            <ul>
+                <li v-for="kay in catalog">
+                    <a :href="kay.nodeId"> {{kay.name}}</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 
@@ -22,7 +24,7 @@
                 this.$http.get('https://web-store-sample-vs.herokuapp.com/web-store/catalog/').then(response => {
                     // get body data
                     this.catalog = response.body;
-                    console.log(this.catalog);
+
                 }, response => {
 
                     // error callback
