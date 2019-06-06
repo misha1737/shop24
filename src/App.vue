@@ -25,17 +25,21 @@
               </ul>
           </div>
       </nav>
+          <app-catalog></app-catalog>
           <app-user-menu></app-user-menu>
+
       </div>
   </div>
 </template>
 
 <script>
     import userMenu from './components/UserMenu'
+    import catalog from './components/CatalogMenu'
 export default {
   name: 'app',
     components: {
-        appUserMenu:userMenu
+        appUserMenu:userMenu,
+        appCatalog:catalog
 
     },
 
