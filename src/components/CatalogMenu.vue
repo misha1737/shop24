@@ -4,11 +4,18 @@
         <h1>Каталог</h1>
 
         <ul>
-            <li v-for="kay in menuCatalog">
-                <a :href="kay.nodeId"> {{kay.name}}</a>
-            </li>
+            <router-link
+                    tag="li"
+                    v-for="kay in menuCatalog"
+                    :to="/catalog/+kay.nodeId"
+                    :key="kay.nodeId"
+            >
+                <a>{{kay.name}} </a>
+            </router-link>
+            <!--<li v-for="kay in menuCatalog">-->
+                <!--<a :href="kay.nodeId"> {{kay.name}}</a>-->
+            <!--</li>-->
         </ul>
-
     </div>
 </template>
 
@@ -26,9 +33,6 @@
         },
         methods:{
             getCatalog(){
-
-
-                //  Vue.http.get('https://web-store-sample-vs.herokuapp.com/web-store/catalog/' + catalog[i].nodeId + '/sub-categories')
                 function loadCatalog(url){
                     return new Promise((resolve, reject) => {
                         Vue.http.get(url).then(response => {
@@ -38,12 +42,8 @@
                         });
                     });
                 }
-
                 loadCatalog('https://web-store-sample-vs.herokuapp.com/web-store/catalog/').then(
-
                     result => {
-
-
                         for (let i=0; i<result.length; i++){
                             this.menuCatalog.push({
                                 name: result[i].name,
@@ -67,16 +67,12 @@
                                                             name: result3[k].name,
                                                             nodeId:result3[k].nodeId
                                                         })
-                                                        // console.log(result3[k].name);
-
                                                     }
                                                 })
                                         }
                                     }
                                 );
                         }
-                        console.log(this.menuCatalog);
-
                     }
                 );
             }

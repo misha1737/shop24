@@ -29,6 +29,10 @@ export default new VueRouter({
             component: Catalog
         },
         {
+            path: '/catalog/:id',
+            component: Catalog
+        },
+        {
             path: '/registration', //home page
             component: Registration
         },
