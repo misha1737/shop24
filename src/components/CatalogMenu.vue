@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <h1>Каталог</h1>
+        <h1>header menu</h1>
 
         <ul>
             <router-link
@@ -81,5 +81,9 @@
 </script>
 
 <style scoped>
+    *{
+        background-color: #eee;
+        margin:10px 0;
 
+    }
 </style>

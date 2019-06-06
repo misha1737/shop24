@@ -25,7 +25,8 @@
             return{
 
              id: this.$router.currentRoute.params['id'],
-                menuCatalog:[]
+                menuCatalog:[],
+                breadcrumbs:[]
             }
         },
         beforeMount(){
@@ -50,6 +51,7 @@
                     url='https://web-store-sample-vs.herokuapp.com/web-store/catalog/';
                 }
                 this.menuCatalog=[];
+                this.breadcrumbs=[];
                 loadCatalog(url).then(
                     result => {
                         for (let i = 0; i < result.length; i++) {
@@ -59,6 +61,14 @@
                                 podcatalog: []
                             })
                         }
+                        for (let i = 0; i < result[0].parentNodes.length; i++) {
+                            this.breadcrumbs.push({
+                                name: result[0].parentNodes[i].name,
+                                nodeId: result[0].parentNodes[i].nodeId
+                            })
+                        }
+                        this.$store.commit('changeBreadcrumbs',this.breadcrumbs )
+
                     }
                 )
             }

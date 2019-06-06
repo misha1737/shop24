@@ -40,4 +40,9 @@
         cursor: pointer;
         font-weight:900;
     }
+    *{
+        background-color: #eee;
+        margin:10px 0;
+
+    }
 </style>

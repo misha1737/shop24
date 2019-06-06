@@ -26,6 +26,7 @@
           </div>
       </nav>
           <app-catalog></app-catalog>
+          <app-breadcrumbs></app-breadcrumbs>
           <app-user-menu></app-user-menu>
 
       </div>
@@ -35,12 +36,13 @@
 <script>
     import userMenu from './components/UserMenu'
     import catalog from './components/CatalogMenu'
+    import breadcrumbs from './components/Breadcrumbs'
 export default {
   name: 'app',
     components: {
         appUserMenu:userMenu,
-        appCatalog:catalog
-
+        appCatalog:catalog,
+        appBreadcrumbs: breadcrumbs
     },
 
 

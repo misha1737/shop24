@@ -4,7 +4,7 @@ export default{
     state:{
         access_token: '',
         refresh_token: '',
-        userName: '123'
+        userName: '',
     },
     mutations:{
         changeAccessToken (state, payload){
