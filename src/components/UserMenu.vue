@@ -1,7 +1,7 @@
 <template>
     <div>
     <h6>Вітаю, {{userName}}</h6><span class="signOut" @click="signOut">Вийти</span>
-    <router-view></router-view>
+
     </div>
 </template>
 

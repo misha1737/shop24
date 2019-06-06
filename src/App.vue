@@ -28,7 +28,7 @@
           <app-catalog></app-catalog>
           <app-breadcrumbs></app-breadcrumbs>
           <app-user-menu></app-user-menu>
-
+          <router-view></router-view>
       </div>
   </div>
 </template>

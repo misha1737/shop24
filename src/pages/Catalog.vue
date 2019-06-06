@@ -1,8 +1,6 @@
 <template>
     <div>
-
-            <h1>Каталог</h1>
-
+            <h1>{{title}}</h1>
             <ul>
                 <router-link
                         tag="li"
@@ -11,27 +9,27 @@
                         :key="kay.nodeId"
                 >
                     <a>{{kay.name}} </a>
-
-
                 </router-link>
             </ul>
+        <app-products></app-products>
     </div>
 </template>
-
 <script>
+    import products from '../components/Products'
     import Vue from 'vue';
     export default {
         data(){
             return{
-
              id: this.$router.currentRoute.params['id'],
                 menuCatalog:[],
-                breadcrumbs:[]
+                breadcrumbs:[],
             }
+        },
+        components: {
+            appProducts:products
         },
         beforeMount(){
             this.getCatalog(this.id)
-
         },
         methods: {
             getCatalog(id) {
@@ -53,7 +51,9 @@
                 this.menuCatalog=[];
                 this.breadcrumbs=[];
                 loadCatalog(url).then(
-                    result => {
+                    result => {if(result.length==0){
+                               //last directory branch
+                            }else {
                         for (let i = 0; i < result.length; i++) {
                             this.menuCatalog.push({
                                 name: result[i].name,
@@ -67,13 +67,22 @@
                                 nodeId: result[0].parentNodes[i].nodeId
                             })
                         }
-                        this.$store.commit('changeBreadcrumbs',this.breadcrumbs )
+                        this.$store.commit('changeBreadcrumbs', this.breadcrumbs)
+                        if (this.breadcrumbs.length == 0) {
 
+                        } else
+                            this.$store.commit('changeTitle', this.breadcrumbs[this.breadcrumbs.length - 1].name)
+
+                     }
                     }
                 )
             }
         },
-
+        computed:{
+            title(){
+                return this.$store.getters.getTitle
+            }
+        },
         watch:{
             $route (toR, fromR){
                 this.id=toR.params['id'];
@@ -82,7 +91,5 @@
         }
     }
 </script>
-
 <style scoped>
-
 </style>

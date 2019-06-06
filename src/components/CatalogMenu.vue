@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <h1>header menu</h1>
+        <h6>header menu</h6>
 
         <ul>
             <router-link
