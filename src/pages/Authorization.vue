@@ -47,23 +47,16 @@
                 }
 
                 this.$http.post('https://web-store-sample-vs.herokuapp.com/web-store/auth/signin', userData).then(response => {
-                    this.catalog = response.body;
-                    if (response.body.token_type == 'bearer') {
-                        this.$store.commit('changeAccessToken', this.catalog.access_token)
-                        this.$store.commit('changeRefreshToken', this.catalog.refresh_token)
-                        let userName=this.$jwt.decode(this.catalog.access_token);
-                        localStorage.setItem('userName', userName.user_name);
-                        this.$store.commit('changeUserName', userName.user_name)
-
-                    }
+                    this.$store.commit('updateTokens', response)
                 }, response => {
                     if (response.body.status == 400) {
                         alert('Невірний логін або пароль')
                     }
-                    if (response.body.code == 400) {
-                        alert('Невірний логін або пароль')
+
+                }).then(response => {
+                        this.$store.commit('changeUserName', localStorage.userName)
                     }
-                });
+                );
             },
         },
             validations: {

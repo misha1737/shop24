@@ -22,9 +22,7 @@
         },
         methods:{
             signOut(){
-                localStorage.removeItem("access_token");
-                localStorage.removeItem("refresh_token");
-                localStorage.removeItem("userName");
+                localStorage.clear();
                 this.$store.commit('changeUserName', ' Гість')
 
                 }

@@ -34,6 +34,8 @@
 </template>
 
 <script>
+  //  var now = new Date().getTime();
+    //alert(now)
     import userMenu from './components/UserMenu'
     import catalog from './components/CatalogMenu'
     import breadcrumbs from './components/Breadcrumbs'

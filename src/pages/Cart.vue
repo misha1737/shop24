@@ -22,6 +22,15 @@
         },
         methods:{
             getCart(){
+
+
+                let promise = new Promise((resolve,reject ) => {
+                    let obj=[resolve,reject]
+                    this.$store.commit('checkToken', obj)
+                })
+                promise
+                    .then(
+                        result => {
                 const accessData= {
                     Authorization: 'Bearer '+localStorage.access_token,
                 }
@@ -35,12 +44,13 @@
                     if (response.body.status == 400) {
                         alert('Невідома помилка')
                     }else
+                        if(response.body.error=='invalid_token')
                     alert('помилка')
 
                 });
+                        });
 
-
-            }
+            },
         }
     }
 </script>
